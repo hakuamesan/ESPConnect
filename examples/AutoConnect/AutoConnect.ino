@@ -10,17 +10,10 @@
 */
 
 #include <Arduino.h>
-#if defined(ESP8266)
-  /* ESP8266 Dependencies */
-  #include <ESP8266WiFi.h>
-  #include <ESPAsyncTCP.h>
-  #include <ESPAsyncWebServer.h>
-#elif defined(ESP32)
-  /* ESP32 Dependencies */
-  #include <WiFi.h>
-  #include <AsyncTCP.h>
-  #include <ESPAsyncWebServer.h>
-#endif
+#include <WiFi.h>
+#include <AsyncTCP.h>
+#include <ESPAsyncWebServer.h>
+
 #include <ESPConnect.h>
 
 AsyncWebServer server(80);
