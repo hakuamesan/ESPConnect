@@ -116,6 +116,10 @@ bool ESPConnectClass::start_portal(){
   });
 
   _server->onNotFound([&](AsyncWebServerRequest *request){
+    //Serial.printf(ESPCONNECT_HTML.c_str());
+    Serial.println("Headers:");
+    Serial.printf(request->header());
+    Serial.println(request->url());
     AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", ESPCONNECT_HTML, ESPCONNECT_HTML_SIZE);
     response->addHeader("Content-Encoding", "gzip");
     request->send(response);
@@ -180,6 +184,10 @@ bool ESPConnectClass::begin(AsyncWebServer* server, unsigned long timeout){
 
   load_sta_credentials();
 
+  Serial.println("Beginning..."); delay(1000);
+  Serial.printf("SSID:");
+  Serial.println(_sta_ssid);
+
   if(_sta_ssid != ""){
     ESPCONNECT_SERIAL("STA Pre-configured:\n");
     ESPCONNECT_SERIAL("SSID: "+_sta_ssid+"\n");
@@ -190,6 +198,11 @@ bool ESPConnectClass::begin(AsyncWebServer* server, unsigned long timeout){
     WiFi.persistent(false);
     WiFi.setAutoConnect(false);
     WiFi.mode(WIFI_STA);
+    Serial.printf("SSID:");
+    Serial.println(_sta_ssid);
+    Serial.printf("PWD:");
+    Serial.println(_sta_password);
+  
     WiFi.begin(_sta_ssid.c_str(), _sta_password.c_str());
 
     // Check WiFi connection status till timeout
